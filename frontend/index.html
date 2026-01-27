@@ -1,9 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Deepfake & Fake News Detector</title>
+  <title>Fake News Detector</title>
 </head>
 <body>
-  <h1>Welcome</h1>
+
+<h2>Fake News Detector</h2>
+<textarea id="news" rows="5" cols="50"></textarea><br><br>
+<button onclick="check()">Check</button>
+<p id="output"></p>
+
+<script>
+function check() {
+  fetch("http://127.0.0.1:5000/predict", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ text: document.getElementById("news").value })
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("output").innerText =
+      data.prediction + " (" + data.confidence + ")";
+  });
+}
+</script>
+
 </body>
 </html>
