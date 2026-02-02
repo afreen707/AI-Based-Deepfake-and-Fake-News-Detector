@@ -1,29 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Fake News Detector</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Fake News & Deepfake Detector</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <h1>AI Fake News & Deepfake Detector</h1>
+    
+    <form id="analyzeForm" enctype="multipart/form-data">
+        <label for="text">Text Content:</label>
+        <textarea id="text" name="text" rows="6" placeholder="Paste news article or social media post here..."></textarea>
 
-<h2>Fake News Detector</h2>
-<textarea id="news" rows="5" cols="50"></textarea><br><br>
-<button onclick="check()">Check</button>
-<p id="output"></p>
+        <label for="file">Upload Image/Video:</label>
+        <input type="file" id="file" name="file" accept="image/*,video/*">
 
-<script>
-function check() {
-  fetch("http://127.0.0.1:5000/predict", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({ text: document.getElementById("news").value })
-  })
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("output").innerText =
-      data.prediction + " (" + data.confidence + ")";
-  });
-}
-</script>
+        <button type="submit">Analyze</button>
+    </form>
 
+    <div id="results" style="display:none;">
+        <h2>Analysis Results:</h2>
+        
+        <!-- Overall Verdict -->
+        <div id="verdict" style="padding: 15px; margin: 10px 0; border-radius: 5px; font-size: 20px; font-weight: bold; text-align: center;">
+            <!-- Will be filled by JavaScript -->
+        </div>
+        
+        <!-- Detailed Scores -->
+        <div style="background: #f9f9f9; padding: 15px; border-radius: 5px; margin-top: 10px;">
+            <p><strong>📊 Credibility Score:</strong> <span id="credibility">-</span>/100</p>
+            <p><strong>📝 Text Analysis Score:</strong> <span id="textScore">-</span>/100</p>
+            <p><strong>🔍 Suspicious Phrases:</strong> <span id="phrases">-</span></p>
+            <p><strong>📷 Media Analysis Score:</strong> <span id="mediaScore">-</span>/100</p>
+        </div>
+        
+        <!-- Explanation -->
+        <div id="explanation" style="margin-top: 15px; padding: 10px; background: #e8f4f8; border-left: 4px solid #2196F3; border-radius: 3px;">
+            <!-- Will be filled by JavaScript -->
+        </div>
+    </div>
+
+    <div style="margin-top: 20px; padding: 15px; background: #f5f5f5; border-radius: 5px;">
+        <h3>📖 How to Interpret Scores:</h3>
+        <ul style="line-height: 1.8;">
+            <li><strong>80-100:</strong> ✅ Likely authentic and credible</li>
+            <li><strong>60-79:</strong> ⚠️ Some concerns - verify before sharing</li>
+            <li><strong>40-59:</strong> ❌ Likely misleading - proceed with caution</li>
+            <li><strong>0-39:</strong> 🚫 Highly suspicious - do not trust without verification</li>
+        </ul>
+        <p style="font-size: 14px; color: #666; margin-top: 10px;">
+            <em>Note: This is an AI-powered analysis tool. Always use critical thinking and verify important claims with multiple trusted sources.</em>
+        </p>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

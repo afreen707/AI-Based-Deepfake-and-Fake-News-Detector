@@ -31,3 +31,14 @@ frontend/   -> User interface
 datasets/   -> Training datasets
 models/     -> Saved trained models
 
+# AI-Based Deepfake & Fake News Detector
+
+## Features
+- Fake news detection using NLP logic
+- Deepfake video detection (placeholder)
+- Flask backend + HTML/CSS/JS frontend
+
+## How to Run
+```bash
+pip install -r requirements.txt
+python backend/app.py
